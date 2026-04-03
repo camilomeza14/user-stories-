@@ -1,0 +1,134 @@
+# ==============================================================================
+# PROGRAMA: SISTEMA DE CONTROL DE INVENTARIO
+# AUTOR: Camilo - Python Apprentice
+# TEMAS: if/elif/else, while, for, listas, diccionarios, funciones
+# ==============================================================================
+
+# --- BASE DE DATOS: lista vacía que almacenará diccionarios ---
+inventario = []
+
+
+# --- TASK 2 Y 5: Función para agregar productos ---
+def agregar_producto():
+    print("\n" + "─" * 35)
+    print("      [AGREGAR PRODUCTO]")
+    print("─" * 35)
+
+    # Pedimos el nombre (no puede estar vacío)
+    nombre = ""
+    while nombre == "":
+        nombre = input("Nombre del producto: ").strip()
+        if nombre == "":
+            print("❌ El nombre no puede estar vacío.")
+
+    # Pedimos el precio (debe ser un número positivo)
+    precio = -1
+    while precio < 0:
+        try:
+            precio = float(input("Precio: "))
+            if precio < 0:
+                print("❌ El precio no puede ser negativo.")
+        except ValueError:
+            print("❌ Ingresa un número válido para el precio.")
+            precio = -1
+
+    # Pedimos la cantidad (debe ser entero positivo)
+    cantidad = -1
+    while cantidad < 0:
+        try:
+            cantidad = int(input("Cantidad: "))
+            if cantidad < 0:
+                print("❌ La cantidad no puede ser negativa.")
+        except ValueError:
+            print("❌ Ingresa un número entero válido para la cantidad.")
+            cantidad = -1
+
+    # Armamos el diccionario y lo añadimos a la lista
+    producto = {"nombre": nombre, "precio": precio, "cantidad": cantidad}
+    inventario.append(producto)
+
+    print(f"\n✅ '{nombre}' agregado al inventario.")
+
+
+# --- TASK 3 Y 5: Función para mostrar todos los productos ---
+def mostrar_inventario():
+    print("\n" + "─" * 35)
+    print("      [INVENTARIO ACTUAL]")
+    print("─" * 35)
+
+    # Si la lista está vacía, avisamos y salimos
+    if len(inventario) == 0:
+        print("⚠️  El inventario está vacío.")
+        return
+
+    # Recorremos cada producto de la lista con un for
+    for producto in inventario:
+        print(f"Producto: {producto['nombre']} | "
+              f"Precio: {producto['precio']} | "
+              f"Cantidad: {producto['cantidad']}")
+
+    print("─" * 35)
+
+
+# --- TASK 4 Y 5: Función para calcular estadísticas ---
+def calcular_estadisticas():
+    print("\n" + "─" * 35)
+    print("      [ESTADÍSTICAS]")
+    print("─" * 35)
+
+    # No tiene sentido calcular si no hay productos
+    if len(inventario) == 0:
+        print("⚠️  No hay productos para calcular.")
+        return
+
+    # Acumulamos el valor total recorriendo la lista
+    valor_total = 0
+    for producto in inventario:
+        valor_total = valor_total + (producto["precio"] * producto["cantidad"])
+
+    # La cantidad de productos es simplemente el tamaño de la lista
+    total_productos = len(inventario)
+
+    print(f"📦 Total de productos registrados : {total_productos}")
+    print(f"💰 Valor total del inventario     : {valor_total}")
+    print("─" * 35)
+
+
+# ==============================================================================
+# --- TASK 1, 2 Y 5: MOTOR PRINCIPAL — menú dentro de un while ---
+# ==============================================================================
+
+# El sistema corre hasta que el usuario elija salir
+opcion = ""
+while opcion != "4":
+
+    # Mostramos el menú en cada iteración
+    print("\n" + "═" * 35)
+    print("    SISTEMA DE INVENTARIO")
+    print("═" * 35)
+    print("1. Agregar producto")
+    print("2. Mostrar inventario")
+    print("3. Calcular estadísticas")
+    print("4. Salir")
+
+    opcion = input("\nElige una opción (1-4): ").strip()
+
+    # Procesamos la opción con if/elif/else
+    if opcion == "1":
+        agregar_producto()
+    elif opcion == "2":
+        mostrar_inventario()
+    elif opcion == "3":
+        calcular_estadisticas()
+    elif opcion == "4":
+        print("\n👋 Sistema cerrado. ¡Hasta luego!")
+    else:
+        # Opción inválida — el while vuelve a mostrar el menú
+        print(f"⚠️  '{opcion}' no es válida. Elige entre 1 y 4.")
+
+# ==============================================================================
+# RESUMEN DE LA SEMANA:
+# Aplicamos estructuras condicionales (if/elif/else) y bucles (while/for)
+# para gestionar un inventario real. Usamos listas de diccionarios para
+# almacenar productos y funciones para mantener el código limpio y modular.
+# ==============================================================================
