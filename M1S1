@@ -1,0 +1,67 @@
+# ==============================================
+# PROGRAMA: Inventario Básico
+# DESCRIPCIÓN: Registra un producto con nombre,
+# precio y cantidad, luego calcula el costo total.
+# ==============================================
+
+
+# ==============================================
+# TASK 2 — ENTRADA DE DATOS CON VALIDACIÓN
+# Se solicitan los tres datos obligatorios.
+# Si el usuario ingresa algo inválido, se vuelve
+# a pedir el dato hasta que sea correcto.
+# ==============================================
+
+# Solicitar el nombre del producto (string — texto simple)
+nombre = input("Ingrese el nombre del producto: ")
+
+# Solicitar el precio con validación
+# float() convierte el texto a número decimal
+# Si falla (ej: el usuario escribe "abc"), try/except lo atrapa
+precio = 0.0
+while True:
+    try:
+        precio = float(input("Ingrese el precio unitario: "))
+        break  # Si llegó aquí, el dato es válido — salimos del bucle
+    except ValueError:
+        print("⚠ Valor inválido. Por favor ingrese un número (ejemplo: 1500.50)\n")
+
+# Solicitar la cantidad con validación
+# int() convierte el texto a número entero
+cantidad = 0
+while True:
+    try:
+        cantidad = int(input("Ingrese la cantidad en inventario: "))
+        break  # Dato válido — salimos del bucle
+    except ValueError:
+        print("⚠ Valor inválido. Por favor ingrese un número entero (ejemplo: 3)\n")
+
+
+# ==============================================
+# TASK 3 — OPERACIÓN MATEMÁTICA
+# Se calcula el costo total DESPUÉS de validar
+# los datos. precio * cantidad = costo_total
+# ==============================================
+
+costo_total = precio * cantidad
+
+
+# ==============================================
+# TASK 4 — MOSTRAR RESULTADOS EN CONSOLA
+# Se imprime un resumen claro y formateado
+# con todos los datos del producto registrado.
+# ==============================================
+
+print("\n========== RESULTADO ==========")
+print(f"Producto: {nombre} | Precio: {precio} | Cantidad: {cantidad} | Total: {costo_total}")
+print("================================")
+
+
+# ==============================================
+# RESUMEN GENERAL DEL PROGRAMA
+# Este programa solicita al usuario el nombre,
+# precio y cantidad de un producto. Valida que
+# precio y cantidad sean valores numéricos válidos.
+# Luego calcula el costo total (precio x cantidad)
+# y muestra un resumen claro en la consola.
+# ==============================================
